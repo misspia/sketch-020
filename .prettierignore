@@ -1,0 +1,17 @@
+# Ignore artifacts:
+docs
+coverage
+
+# Ignore all HTML files:
+**/*.html
+
+## dev config
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+**/.babelrc
+package-lock.json
+package.json
+
+README.md
