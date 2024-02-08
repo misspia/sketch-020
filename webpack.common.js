@@ -1,9 +1,8 @@
-const projectName = require("./package.json").name;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  entry: path.join(__dirname, "src", "index.tsx"),
+  entry: path.join(__dirname, "src", "index.js"),
   output: {
     clean: true,
     path: path.join(__dirname, "docs"),
@@ -12,12 +11,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts?$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(pdf|png|jpg|jpeg|gif|ico|mp3|json)$/,
+        test: /\.(pdf|png|jpg|jpeg|gif|ico|mp3|json|fbx)$/,
         type: "javascript/auto",
         use: [
           {
@@ -40,7 +34,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx|ts|tsx)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -52,7 +46,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".tsx", ".ts"],
+    extensions: [".js", ".jsx"],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -60,7 +54,7 @@ module.exports = {
       template: path.join(__dirname, "src", "template.html"),
       inject: true,
       containerId: "root",
-      title: projectName,
+      title: "sketch-020",
     }),
   ],
 };
