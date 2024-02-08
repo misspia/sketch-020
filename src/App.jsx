@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import styled from "styled-components";
 import { WebGLApp } from "./webgl";
 import { useWindowSize } from "./hooks";
 
@@ -22,7 +21,8 @@ export const App = () => {
     if (!webglApp) return;
 
     webglApp.draw();
-    // webglApp.current.loadModel();
+
+    webglApp.loadModel();
   }, [webglApp]);
 
   return <canvas ref={canvasRef}></canvas>;
