@@ -38,6 +38,8 @@ export class SceneManager extends THREE.EventDispatcher {
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
+    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
 

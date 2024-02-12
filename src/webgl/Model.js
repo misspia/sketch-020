@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { FBXLoader } from "three/addons/loaders/FBXLoader";
 import { assets } from "../themes";
-console.debug(assets);
+import { toRadians } from "./utils";
 
 export class Model {
   constructor(context) {
@@ -12,22 +12,36 @@ export class Model {
 
   load() {
     const loader = new FBXLoader();
-    // loader.load(assets.Dancer, (object) => {
     loader.load(assets.Rig, (object) => {
+      object.rotation.y = toRadians(40);
+      object.rotation.x = toRadians(15);
+
       this.mixer = new THREE.AnimationMixer(object);
       const action = this.mixer.clipAction(object.animations[0]);
       action.play();
-      console.debug("action", object);
 
-      const bodyTexture = new THREE.TextureLoader().load(assets.Body);
-      const bodyMaterial = new THREE.MeshBasicMaterial({ map: bodyTexture });
+      const bodyMaterial = new THREE.MeshPhysicalMaterial({
+        metalness: 0.4,
+        roughness: 0.0,
+        opacity: 0.85,
+        transparent: true,
+        envMap: this.context.environment.envMap,
+        side: THREE.DoubleSide,
+        sheen: new THREE.Color(0x0000ff).convertSRGBToLinear(2.2),
+        color: new THREE.Color(0xffffff).convertSRGBToLinear(2.2),
+        refractionRatio: 1.0 / 1.6,
+      });
+
       object.traverse((child) => {
         if (child.isMesh) {
           child.material = bodyMaterial;
+          child.castShadow = true;
         }
       });
 
-      this.context.scene.add(object);
+      // hack...
+      // fix: add to scene after animation start playing to avoid flash of unanimated model
+      setTimeout(() => this.context.scene.add(object), 100);
     });
   }
 
