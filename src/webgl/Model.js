@@ -1,8 +1,11 @@
 import * as THREE from "three";
 import { FBXLoader } from "three/addons/loaders/FBXLoader";
-import { assets } from "../themes";
-import { toRadians } from "./utils";
+import { assets } from "@themes";
+import { toRadians } from "@webgl/utils";
 
+/**
+ * https://github.com/misspia/sketch-011/blob/master/src/Crystal.js
+ */
 export class Model {
   constructor(context) {
     this.context = context;

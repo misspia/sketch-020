@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Pokedex } from "./Pokedex";
+import { Pokedex } from "@webgl/Pokedex";
 
 export class WebGLApp {
   constructor(canvas) {

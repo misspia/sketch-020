@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import { SceneManager } from "./SceneManager";
-import { Model } from "./Model";
-import { Lights } from "./Lights";
-import { Environment } from "./Environment";
+import { SceneManager } from "@webgl/SceneManager";
+import { Model } from "@webgl/Model";
+import { Lights } from "@webgl/Lights";
+import { Environment } from "@webgl/Environment";
 
 export class Pokedex extends SceneManager {
   constructor(canvas, options = {}) {

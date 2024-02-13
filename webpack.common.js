@@ -47,6 +47,13 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx"],
+    alias: {
+      "@webgl": path.resolve(__dirname, "src", "webgl"),
+      "@themes": path.resolve(__dirname, "src", "themes"),
+      "@views": path.resolve(__dirname, "src", "views"),
+      "@hooks": path.resolve(__dirname, "src", "hooks"),
+      "@constants": path.resolve(__dirname, "src", "constants"),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
