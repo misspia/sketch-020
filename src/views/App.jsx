@@ -4,6 +4,7 @@ import { WebGLApp } from "@webgl";
 import { useWindowSize } from "@hooks/useWindowSize";
 import { useApp } from "@hooks/useApp";
 import { AppStage } from "@constants/app";
+import { GlobalStyles } from "@themes";
 
 import { LoadingView } from "@views/Loading";
 import { StartView } from "@views/Start";
@@ -43,6 +44,7 @@ export const App = () => {
 
   return (
     <>
+      <GlobalStyles />
       <Canvas ref={canvasRef}></Canvas>
       {stage === AppStage.LOADING && <LoadingView />}
       {stage === AppStage.START && <StartView />}
