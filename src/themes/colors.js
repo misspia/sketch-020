@@ -1,3 +1,35 @@
 export default {
   shadow: "rgba(0, 0, 0, 0.24)",
+
+  gray: {
+    100: "#f5f5f5",
+    200: "#eeeeee",
+    300: "#e0e0e0",
+    400: "#bdbdbd",
+    500: "#9e9e9e",
+    600: "#757575",
+    700: "#616161",
+    800: "#424242",
+  },
+
+  types: {
+    normal: "#aaaa99",
+    fire: "#ff4322",
+    water: "#3399ff",
+    electric: "#ffcc33",
+    grass: "#77cc55",
+    ice: "#66ccff",
+    fighting: "#bb5545",
+    poison: "#aa5599",
+    ground: "#e2c571",
+    flying: "#8899ff",
+    psychic: "#ff5599",
+    bug: "#aabb21",
+    rock: "#bbaa66",
+    ghost: "#6666bb",
+    dragon: "#7766ee",
+    dark: "#775544",
+    steel: "#aaaabb",
+    fairy: "#ee99ee",
+  },
 };

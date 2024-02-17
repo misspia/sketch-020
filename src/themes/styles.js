@@ -1,10 +1,10 @@
 import { createGlobalStyle } from "styled-components";
-import { font } from "@themes";
+import { fonts } from "@themes";
 
 export const GlobalStyles = createGlobalStyle`
   body {
-    font-family: ${font.fontFamily};
-    font-weight: ${font.weight.regular};
+    font-family: ${fonts.fontFamily};
+    font-weight: ${fonts.weight.regular};
     font-optical-sizing: auto;
     font-style: normal;
 

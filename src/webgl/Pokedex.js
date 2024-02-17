@@ -14,13 +14,15 @@ export class Pokedex extends SceneManager {
     this.clock = new THREE.Clock();
   }
   init() {
-    this.setClearColor(0xaaaaaa);
-    this.setCameraPos(0, 0, 3);
+    this.setClearColor(0xffffff);
+    this.setCameraPos(0, 0, 5);
+    this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.scene.add(this.lights.group);
   }
 
-  loadModel() {
-    this.model.load();
+  async loadModel() {
+    await this.model.load();
+    this.model.position.set(-5, 0, 0);
   }
 
   draw() {
