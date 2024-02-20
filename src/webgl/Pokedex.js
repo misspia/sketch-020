@@ -25,6 +25,17 @@ export class Pokedex extends SceneManager {
     this.model.position.set(-5, 0, 0);
   }
 
+  updateModelPosition() {
+    this.model.updatePosition();
+  }
+  setScissor(x, y, width, height) {
+    this.renderer.setScissor(x, y, width, height);
+  }
+
+  enableScissor(enable) {
+    this.renderer.setScissorTest(enable);
+  }
+
   draw() {
     this.renderer.render(this.scene, this.camera);
     this.controls.update();

@@ -6,12 +6,28 @@ export class WebGLApp {
     this.pokedex = new Pokedex(canvas);
   }
 
+  resize(width, height) {
+    this.pokedex.resize(width, height);
+  }
+
   loadModel() {
     this.pokedex.loadModel();
   }
 
-  resize(width, height) {
-    this.pokedex.resize(width, height);
+  updateModelPositin() {
+    this.pokedex.updateModelPosition();
+  }
+
+  setScissor(x, y, width, height) {
+    this.pokedex.setScissor(x, y, width, height);
+  }
+
+  enableScissor() {
+    this.pokedex.enableScissor(true);
+  }
+
+  disableScissor() {
+    this.pokedex.disableScissor(false);
   }
 
   draw() {

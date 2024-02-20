@@ -51,6 +51,7 @@ module.exports = {
       "@webgl": path.resolve(__dirname, "src", "webgl"),
       "@themes": path.resolve(__dirname, "src", "themes"),
       "@views": path.resolve(__dirname, "src", "views"),
+      "@contexts": path.resolve(__dirname, "src", "contexts"),
       "@hooks": path.resolve(__dirname, "src", "hooks"),
       "@constants": path.resolve(__dirname, "src", "constants"),
     },

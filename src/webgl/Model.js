@@ -17,14 +17,18 @@ export class Model {
     this.bbox = new THREE.Box3();
   }
 
+  get position() {
+    return this.group.position;
+  }
+
   load() {
     const loader = new FBXLoader();
 
     return new Promise((resolve) => {
       // loader.load(assets.Rig0001, (object) => {
       // loader.load(assets.Rig0006, (object) => {
-      loader.load(assets.Rig0091, (object) => {
-        // loader.load(assets.Rig0130, (object) => {
+      // loader.load(assets.Rig0091, (object) => {
+      loader.load(assets.Rig0130, (object) => {
         // loader.load(assets.Rig0151, (object) => {
         // loader.load(assets.Rig0145, (object) => {
 
@@ -58,7 +62,6 @@ export class Model {
         });
         this.bbox.setFromObject(object);
         const center = this.bbox.getCenter(object.position).multiplyScalar(-1);
-        console.debug(center);
         object.position.set(center.x - 2.3, center.y - 1, center.z - 0);
         object.scale.set(2, 2, 2);
         object.rotation.y = toRadians(50);
@@ -78,8 +81,9 @@ export class Model {
     });
   }
 
-  get position() {
-    return this.group.position;
+  // https://stackoverflow.com/a/11605007
+  updatePosition() {
+    this.position.set();
   }
 
   update() {
