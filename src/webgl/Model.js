@@ -12,6 +12,7 @@ export class Model {
     this.mixer = undefined;
     this.clips = [];
     this.group = new THREE.Group();
+    this.object = null;
     this.context.scene.add(this.group);
 
     this.bbox = new THREE.Box3();
@@ -26,11 +27,12 @@ export class Model {
 
     return new Promise((resolve) => {
       // loader.load(assets.Rig0001, (object) => {
-      // loader.load(assets.Rig0006, (object) => {
-      // loader.load(assets.Rig0091, (object) => {
-      loader.load(assets.Rig0130, (object) => {
+      loader.load(assets.Rig0006, (object) => {
+        // loader.load(assets.Rig0091, (object) => {
+        // loader.load(assets.Rig0130, (object) => {
         // loader.load(assets.Rig0151, (object) => {
         // loader.load(assets.Rig0145, (object) => {
+        this.object = object;
 
         this.mixer = new THREE.AnimationMixer(object);
         const action = this.mixer.clipAction(object.animations[0]);
@@ -46,39 +48,44 @@ export class Model {
           sheen: new THREE.Color(0x0000ff).convertSRGBToLinear(2.2),
           // color: new THREE.Color(0xffffff).convertSRGBToLinear(2.2), // grey
           color: new THREE.Color(colors.types.grass).convertSRGBToLinear(2.2),
-          color: new THREE.Color(colors.types.water).convertSRGBToLinear(2.2),
+          // color: new THREE.Color(colors.types.water).convertSRGBToLinear(2.2),
           // color: new THREE.Color(colors.types.fire).convertSRGBToLinear(2.2),
-          color: new THREE.Color(colors.types.psychic).convertSRGBToLinear(2.2),
-          color: new THREE.Color(colors.types.ice).convertSRGBToLinear(2.2),
+          // color: new THREE.Color(colors.types.psychic).convertSRGBToLinear(2.2),
+          // color: new THREE.Color(colors.types.ice).convertSRGBToLinear(2.2),
           // color: new THREE.Color(colors.types.electric).convertSRGBToLinear(2.2),
           refractionRatio: 1.0 / 1.6,
         });
 
-        object.traverse((child) => {
+        this.object.traverse((child) => {
           if (child.isMesh) {
             child.material = bodyMaterial;
             child.castShadow = true;
           }
         });
-        this.bbox.setFromObject(object);
-        const center = this.bbox.getCenter(object.position).multiplyScalar(-1);
-        object.position.set(center.x - 2.3, center.y - 1, center.z - 0);
-        object.scale.set(2, 2, 2);
-        object.rotation.y = toRadians(50);
-        object.rotation.x = toRadians(5);
-        object.rotation.z = toRadians(-5);
-        // this.group.add(object);
-        // object.position.set(-2.3, -0.7, 0);
+        // this.object.scale.set(2, 2, 2);
+        this.object.rotation.y = toRadians(50);
+        this.object.rotation.x = toRadians(5);
+        this.object.rotation.z = toRadians(-5);
+        this.reposition();
 
         // hack...
         // fix: add to scene after animation start playing to avoid flash of unanimated model
         setTimeout(() => {
-          this.context.scene.add(object);
+          this.context.scene.add(this.object);
           // this.group.add(object);
           resolve();
         }, 100);
       });
     });
+  }
+
+  reposition() {
+    if (!this.object) return;
+    const floor = 0.2;
+
+    this.bbox.setFromObject(this.object);
+    const { min, max } = this.bbox.setFromObject(this.object);
+    this.object.position.set(0, -(max.y - min.y) / 2 + floor, 0);
   }
 
   // https://stackoverflow.com/a/11605007

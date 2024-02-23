@@ -89,19 +89,17 @@ export const EntryView = () => {
   const modelView = useRef(null);
   const { width, height } = useWindowSize();
 
-  console.debug("webGL", webGL);
-
   const updateModel = () => {
     const bbox = modelView.current.getBoundingClientRect();
-    console.debug(modelView.current, bbox);
+    // console.debug(modelView.current, bbox);
     webGL.setScissor(bbox.x, bbox.y, bbox.width, bbox.height);
-    webGL.enableScissor();
+    // webGL.enableScissor();
   };
 
   useEffect(() => {
     if (!webGL) return;
 
-    updateModel();
+    // updateModel();
     webGL.loadModel();
   }, [webGL]);
 
@@ -115,9 +113,9 @@ export const EntryView = () => {
     <Container>
       <Title>0001 bulbasaur</Title>
       <Row>
-        <ProfileContainer>
+        {/* <ProfileContainer>
           <ModelView ref={modelView} />
-        </ProfileContainer>
+        </ProfileContainer> */}
       </Row>
       <Summary
         types={["grass", "poison"]}
