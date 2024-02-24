@@ -48,12 +48,13 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
-      "@webgl": path.resolve(__dirname, "src", "webgl"),
+      "@constants": path.resolve(__dirname, "src", "constants"),
+      "@contexts": path.resolve(__dirname, "src", "contexts"),
+      "@data": path.resolve(__dirname, "src", "data"),
+      "@hooks": path.resolve(__dirname, "src", "hooks"),
       "@themes": path.resolve(__dirname, "src", "themes"),
       "@views": path.resolve(__dirname, "src", "views"),
-      "@contexts": path.resolve(__dirname, "src", "contexts"),
-      "@hooks": path.resolve(__dirname, "src", "hooks"),
-      "@constants": path.resolve(__dirname, "src", "constants"),
+      "@webgl": path.resolve(__dirname, "src", "webgl"),
     },
   },
   plugins: [
