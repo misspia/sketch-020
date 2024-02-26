@@ -11,7 +11,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(pdf|png|jpg|jpeg|gif|ico|mp3|json|fbx)$/,
+        test: /\.json$/,
+        loader: "json-loader",
+      },
+      {
+        test: /\.(pdf|png|jpg|jpeg|gif|ico|mp3|fbx)$/,
         type: "javascript/auto",
         use: [
           {

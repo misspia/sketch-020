@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { colors, fonts } from "@themes";
 import { Summary } from "@views/Entry/Summary";
 import { useWebGL } from "@hooks/useWebGL";
-import { useWindowSize } from "@hooks/useWindowSize";
 
 export const Container = styled.div`
   height: 100vh;
@@ -86,36 +85,18 @@ const Row = styled.div`
 
 export const EntryView = () => {
   const webGL = useWebGL();
-  const modelView = useRef(null);
-  const { width, height } = useWindowSize();
-
-  const updateModel = () => {
-    const bbox = modelView.current.getBoundingClientRect();
-    // console.debug(modelView.current, bbox);
-    webGL.setScissor(bbox.x, bbox.y, bbox.width, bbox.height);
-    // webGL.enableScissor();
-  };
 
   useEffect(() => {
     if (!webGL) return;
-
-    // updateModel();
     webGL.loadModel();
   }, [webGL]);
-
-  useEffect(() => {
-    if (!webGL || !modelView.current) return;
-
-    updateModel();
-  }, [webGL, modelView.current, width, height]);
 
   return (
     <Container>
       <Title>0001 bulbasaur</Title>
       <Row>
-        {/* <ProfileContainer>
-          <ModelView ref={modelView} />
-        </ProfileContainer> */}
+        {/* <ProfileContainer />
+         */}
       </Row>
       <Summary
         types={["grass", "poison"]}

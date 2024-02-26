@@ -1,0 +1,20 @@
+import pokemonTypesData from "@data/pokemon/types";
+import typesData from "@data/types";
+
+export const getTypeNamesById = (id) => {
+  const typeIds = pokemonTypesData
+    .filter((type) => type.pokemon_id === id)
+    .map((pokemon) => pokemon.type_id);
+
+  return typeIds.map(
+    (id) => typesData.find((type) => type.id === id).identifier,
+  );
+};
+
+export const getSpriteUrlById = (id) => {
+  return "";
+};
+
+export const getModelUrlById = (id) => {
+  return "";
+};

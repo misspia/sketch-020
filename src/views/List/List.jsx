@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { usePokemonData } from "@data/usePokemonData";
+import { usePokemonData } from "@hooks/usePokemonData";
 
 export const Container = styled.div``;
 
 export const ListView = () => {
-  const { listPokemon } = usePokemonData();
-  const list = listPokemon();
+  const { allPokemon } = usePokemonData();
+
+  useEffect(() => {
+    console.log("list", allPokemon);
+  }, []);
 
   return (
     <Container>
-      {list.map((pokemon) => (
-        <div key={pokemon.id}>{pokemon.identifier}</div>
+      {allPokemon.map((pokemon) => (
+        <div key={pokemon.id}>{pokemon.name}</div>
       ))}
     </Container>
   );

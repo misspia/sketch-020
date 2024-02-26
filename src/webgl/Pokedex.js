@@ -20,8 +20,8 @@ export class Pokedex extends SceneManager {
     this.scene.add(this.lights.group);
   }
 
-  async loadModel() {
-    await this.model.load();
+  async loadModel(url) {
+    await this.model.load(url);
   }
 
   updateModelPosition() {

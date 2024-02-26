@@ -10,8 +10,8 @@ export class WebGLApp {
     this.pokedex.resize(width, height);
   }
 
-  loadModel() {
-    this.pokedex.loadModel();
+  loadModel(url) {
+    this.pokedex.loadModel(url);
   }
 
   updateModelPositin() {
