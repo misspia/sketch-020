@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import { SceneManager } from "@webgl/SceneManager";
-import { Model } from "@webgl/Model";
 import { Lights } from "@webgl/Lights";
 import { Environment } from "@webgl/Environment";
+import { EntryView } from "@webgl/EntryView";
+import { ListView } from "@webgl/ListView";
 
 export class Pokedex extends SceneManager {
   constructor(canvas, options = {}) {
@@ -10,7 +11,8 @@ export class Pokedex extends SceneManager {
 
     this.environment = new Environment(this);
     this.lights = new Lights(this);
-    this.model = new Model(this);
+    this.entryView = new EntryView(this);
+    this.listView = new ListView(this);
     this.clock = new THREE.Clock();
   }
   init() {
@@ -20,26 +22,28 @@ export class Pokedex extends SceneManager {
     this.scene.add(this.lights.group);
   }
 
-  async loadModel(url) {
-    await this.model.load(url);
+  /**
+   *
+   * @param {string} modelUrl
+   * @param {string[]} types
+   *
+   */
+  async setPokemonEntryView({ modelUrl, types }) {
+    this.entryView.setEntry({ modelUrl, types });
   }
 
-  updateModelPosition() {
-    this.model.updatePosition();
-  }
-  setScissor(x, y, width, height) {
-    this.renderer.setScissor(x, y, width, height);
-  }
-
-  enableScissor(enable) {
-    this.renderer.setScissorTest(enable);
+  /**
+   * @param {Pokemon[]} allPokemon
+   */
+  setListView(allPokemon) {
+    this.listView.setList(allPokemon);
   }
 
   draw() {
     this.renderer.render(this.scene, this.camera);
     this.controls.update();
 
-    this.model.update();
+    // conditionally update entry / list view based on app stage
 
     requestAnimationFrame(() => this.draw());
   }

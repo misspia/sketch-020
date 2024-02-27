@@ -10,24 +10,21 @@ export class WebGLApp {
     this.pokedex.resize(width, height);
   }
 
-  loadModel(url) {
-    this.pokedex.loadModel(url);
+  /**
+   *
+   * @param {string} modelUrl
+   * @param {string[]} types
+   *
+   */
+  async setPokemonEntryView({ modelUrl, types }) {
+    await this.pokedex.setPokemonEntryView({ modelUrl, types });
   }
 
-  updateModelPositin() {
-    this.pokedex.updateModelPosition();
-  }
-
-  setScissor(x, y, width, height) {
-    this.pokedex.setScissor(x, y, width, height);
-  }
-
-  enableScissor() {
-    this.pokedex.enableScissor(true);
-  }
-
-  disableScissor() {
-    this.pokedex.disableScissor(false);
+  /**
+   * @param {Pokemon[]} allPokemon
+   */
+  setListView(allPokemon) {
+    this.pokedex.setListView(allPokemon);
   }
 
   draw() {

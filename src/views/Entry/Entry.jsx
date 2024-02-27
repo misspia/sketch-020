@@ -88,7 +88,7 @@ export const EntryView = () => {
 
   useEffect(() => {
     if (!webGL) return;
-    webGL.loadModel();
+    webGL.setPokemonEntryView(1);
   }, [webGL]);
 
   return (
