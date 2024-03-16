@@ -2,8 +2,8 @@ import * as THREE from "three";
 import { SceneManager } from "@webgl/SceneManager";
 import { Lights } from "@webgl/Lights";
 import { Environment } from "@webgl/Environment";
-import { EntryView } from "@webgl/EntryView";
-import { ListView } from "@webgl/ListView";
+import { EntryStage } from "@webgl/EntryStage";
+import { ListStage } from "@webgl/ListStage";
 
 export class Pokedex extends SceneManager {
   constructor(canvas, options = {}) {
@@ -11,32 +11,45 @@ export class Pokedex extends SceneManager {
 
     this.environment = new Environment(this);
     this.lights = new Lights(this);
-    this.entryView = new EntryView(this);
-    this.listView = new ListView(this);
+    this.entryStage = new EntryStage(this);
+    this.listStage = new ListStage(this);
     this.clock = new THREE.Clock();
+    this.currentStage = null;
   }
   init() {
     this.setClearColor(0xffffff);
-    this.setCameraPos(0, 0, 3);
+    this.setCameraPos(0, 0, 10);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.scene.add(this.lights.group);
   }
 
+
+  async exitCurrentStage() {
+    if(!!this.currentStage) {
+      await this.currentStage.exit();
+      this.scene.remove(this.currentStage.group)
+    }
+    return;
+  }
   /**
    *
    * @param {string} modelUrl
    * @param {string[]} types
    *
    */
-  async setPokemonEntryView({ modelUrl, types }) {
-    this.entryView.setEntry({ modelUrl, types });
+  async enterEntryStage({ modelUrl, types }) {
+    await this.exitCurrentStage();
+    this.scene.add(this.entryStage.group);
+    await this.entryStage.enterEntryStage({ modelUrl, types });
   }
 
   /**
    * @param {Pokemon[]} allPokemon
    */
-  setListView(allPokemon) {
-    this.listView.setList(allPokemon);
+  async enterListStage(allPokemon) {
+    await this.exitCurrentStage();
+    this.scene.add(this.listStage.group);
+    await this.listStage.enter(allPokemon);
   }
 
   draw() {

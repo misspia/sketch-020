@@ -22,6 +22,14 @@ export class Model {
     return this.group.position;
   }
 
+  enter() {
+    
+  }
+
+  exit() {
+
+  }
+
   load(url) {
     const loader = new FBXLoader();
 

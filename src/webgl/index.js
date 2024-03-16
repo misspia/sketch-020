@@ -16,15 +16,15 @@ export class WebGLApp {
    * @param {string[]} types
    *
    */
-  async setPokemonEntryView({ modelUrl, types }) {
-    await this.pokedex.setPokemonEntryView({ modelUrl, types });
+  async enterEntryStage({ modelUrl, types }) {
+    await this.pokedex.enterEntryStage({ modelUrl, types });
   }
 
   /**
    * @param {Pokemon[]} allPokemon
    */
-  setListView(allPokemon) {
-    this.pokedex.setListView(allPokemon);
+  enterListStage(allPokemon) {
+    this.pokedex.enterListStage(allPokemon);
   }
 
   draw() {

@@ -1,9 +1,11 @@
 import * as THREE from "three";
-import { Model } from "@webgl/EntryView/Model";
-import { TypeEffect } from "@webgl/EntryView/TypeEffect";
+import { Model } from "@webgl/EntryStage/Model";
+import { TypeEffect } from "@webgl/EntryStage/TypeEffect";
+import { BaseStage } from '@webgl/BaseStage'
 
-export class EntryView {
+export class EntryStage extends BaseStage {
   constructor(context) {
+    super()
     this.context = context;
     this.model = new Model(this.context);
     this.primaryTypeEffect = new TypeEffect();
@@ -22,6 +24,14 @@ export class EntryView {
   async setEntry({ modelUrl, types }) {
     await this.model.load(modelUrl);
     this.primaryTypeEffect.setType(types[0]);
+  }
+
+  async enter() {
+
+  }
+
+  async exit() {
+
   }
 
   update() {}

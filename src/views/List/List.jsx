@@ -10,7 +10,7 @@ export const ListView = () => {
   const webGL = useWebGL();
 
   useEffect(() => {
-    webGL.setListView(allPokemon);
+    webGL.enterListStage(allPokemon);
   }, []);
 
   return (
