@@ -39,6 +39,7 @@ export class Pokedex extends SceneManager {
    */
   async enterEntryStage({ modelUrl, types }) {
     await this.exitCurrentStage();
+    this.currentStage = this.entryStage;
     this.scene.add(this.entryStage.group);
     await this.entryStage.enterEntryStage({ modelUrl, types });
   }
@@ -48,6 +49,7 @@ export class Pokedex extends SceneManager {
    */
   async enterListStage(allPokemon) {
     await this.exitCurrentStage();
+    this.currentStage = this.listStage;
     this.scene.add(this.listStage.group);
     await this.listStage.enter(allPokemon);
   }
@@ -55,6 +57,10 @@ export class Pokedex extends SceneManager {
   draw() {
     this.renderer.render(this.scene, this.camera);
     this.controls.update();
+
+    if(this.currentStage) {
+      this.currentStage.update();
+    }
 
     // conditionally update entry / list view based on app stage
 

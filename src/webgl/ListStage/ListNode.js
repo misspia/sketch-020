@@ -18,6 +18,10 @@ export class ListNode {
     return this.group.position;
   }
 
+  get rotation() {
+    return this.group.rotation;
+  }
+  
   enter() {
 
   }
@@ -29,10 +33,8 @@ export class ListNode {
 
   createImagePlane() {
     const texture = this.loader.load(this.spriteUrl)
-    console.debug(this.spriteUrl)
     const geometry = new THREE.PlaneGeometry( 1, 1, 32 );
     const material = new THREE.MeshBasicMaterial({
-      // color: 0x000000, 
       side: THREE.DoubleSide,
       transparent: true,
       map: texture,
@@ -43,18 +45,28 @@ export class ListNode {
 
   createTile() {
     const geometry = new THREE.CylinderGeometry( 1, 1, 0.5, 8,  ); 
-    const material = new THREE.MeshPhysicalMaterial({
-      metalness: 0.4,
-      roughness: 0.0,
+    // const material = new THREE.MeshPhysicalMaterial({
+    //   metalness: 0.4,
+    //   roughness: 0.0,
+    //   opacity: 0.5,
+    //   transparent: true,
+    //   color: 0x0000ff,
+    //   sheen: 0x0000ff,
+    // }); 
+    const material = new THREE.MeshToonMaterial({
+      // metalness: 0.4,
+      // roughness: 0.0,
       opacity: 0.5,
       transparent: true,
       color: 0x0000ff,
-      sheen: 0x0000ff,
+      // sheen: 0x0000ff,
     }); 
     const mesh = new THREE.Mesh( geometry, material ); 
     mesh.rotation.x = toRadians(90)
     return mesh;
   }
+
+ 
 
   update() {}
 }
