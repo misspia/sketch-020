@@ -18,7 +18,9 @@ export class Pokedex extends SceneManager {
   }
   init() {
     this.setClearColor(0xffffff);
-    this.setCameraPos(0, 0, 10);
+    // this.setCameraPos(0, 0, 10);
+    this.setCameraPos(0, 19, 0);
+
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.scene.add(this.lights.group);
   }

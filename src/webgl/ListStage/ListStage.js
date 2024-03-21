@@ -1,7 +1,14 @@
 import * as THREE from "three";
-import { ListNode } from "@webgl/Liststage/ListNode";
+import { ListNode, LIST_NODE_WIDTH } from "@webgl/Liststage/ListNode";
 import { BaseStage } from "@webgl/BaseStage";
 import { toRadians } from '@webgl/utils'
+
+const HORIZONTAL_GAP = 0.5;
+const VERTICAL_GAP = 2.5
+export const TILE_WIDTH = LIST_NODE_WIDTH;
+const TILES_PER_ROW = 25;
+const CIRCUMFERENCE = TILES_PER_ROW * (TILE_WIDTH + HORIZONTAL_GAP * 2) - HORIZONTAL_GAP;
+const RADIUS = CIRCUMFERENCE / (2 * Math.PI);
 
 export class ListStage extends BaseStage {
   constructor(context) {
@@ -36,9 +43,7 @@ export class ListStage extends BaseStage {
    * @param {Pokemon[]} allPokemon
    */
   setList(allPokemon) {
-    const radius = 7;
-    const numPokemonPerRow = 18;
-    const angleIncrement = (Math.PI * 2) / numPokemonPerRow;
+    const angleIncrement = (Math.PI * 2) / TILES_PER_ROW;
     let y = 10;
     let angle = 0;
 
@@ -46,14 +51,15 @@ export class ListStage extends BaseStage {
       const pokemon = allPokemon[i];
       const node = new ListNode(pokemon.id, pokemon.spriteUrl);
       angle += angleIncrement;
-      const x = Math.cos(angle) * radius;
-      const z = Math.sin(angle) * radius;
-      if(i % numPokemonPerRow === 0) {
+      const x = Math.cos(angle) * RADIUS;
+      const z = Math.sin(angle) * RADIUS;
+      if(i % TILES_PER_ROW === 0) {
         angle = 0;
-        y -= 2.5;
+        y -= VERTICAL_GAP;
       }
 
-      node.rotation.y = toRadians(0)
+      const yRotation = Math.cos(angle) * z - Math.sin(angle) * x;
+      node.rotation.y = yRotation;
 
       node.position.set(x, y, z);
       this.pokemon.push(node);
