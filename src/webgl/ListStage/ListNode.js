@@ -1,16 +1,13 @@
 import * as THREE from "three";
 import { toRadians } from '@webgl/utils';
-// import { TILE_WIDTH } from '.'
-
-export const LIST_NODE_WIDTH = 1;
 
 export class ListNode {
-  constructor(id, spriteUrl) {
+  constructor({ id, width, spriteUrl }) {
     this.id = id;
     this.spriteUrl = spriteUrl;
     this.loader = new THREE.TextureLoader();
-    // this.imagePlane = this.createImagePlane() 
-    this.tile = this.createTile()
+    // this.imagePlane = this.createImagePlane(width, width) 
+    this.tile = this.createTile(width, width)
 
     this.group = new THREE.Group();
     // this.group.add(this.imagePlane);
@@ -34,9 +31,9 @@ export class ListNode {
   }
   
 
-  createImagePlane() {
+  createImagePlane(width, height) {
     const texture = this.loader.load(this.spriteUrl)
-    const geometry = new THREE.PlaneGeometry( LIST_NODE_WIDTH, LIST_NODE_WIDTH, 32 );
+    const geometry = new THREE.PlaneGeometry( width, height, 32 );
     const material = new THREE.MeshBasicMaterial({
       side: THREE.DoubleSide,
       transparent: true,
@@ -46,8 +43,8 @@ export class ListNode {
     return mesh;
   }
 
-  createTile() {
-    const geometry = new THREE.CylinderGeometry( LIST_NODE_WIDTH, LIST_NODE_WIDTH, 0.5, 8,  ); 
+  createTile(width, height) {
+    const geometry = new THREE.CylinderGeometry(width, height, 0.5, 8,  ); 
     // const material = new THREE.MeshPhysicalMaterial({
     //   metalness: 0.4,
     //   roughness: 0.0,

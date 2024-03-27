@@ -9,3 +9,9 @@ export const getCenter = (obj3d) =>
 
 export const remap = (min1, max1, min2, max2, value) =>
   min2 + ((max2 - min2) * (value - min1)) / (max1 - min1);
+
+export const FULL_CIRCLE_RADIANS = 2 * Math.PI;
+
+export const calcCircumference = (radius) => (
+  2 * Math.PI * radius
+);

@@ -1,15 +1,21 @@
 import * as THREE from "three";
-import { ListNode, LIST_NODE_WIDTH } from "@webgl/Liststage/ListNode";
+import { ListNode } from "@webgl/Liststage/ListNode";
 import { BaseStage } from "@webgl/BaseStage";
-import { toRadians } from '@webgl/utils'
+import { calcCircumference, FULL_CIRCLE_RADIANS } from '@webgl/utils'
 
-const HORIZONTAL_GAP = 0.5;
-const VERTICAL_GAP = 2.5
-export const TILE_WIDTH = LIST_NODE_WIDTH;
-const TILES_PER_ROW = 25;
-const CIRCUMFERENCE = TILES_PER_ROW * (TILE_WIDTH + HORIZONTAL_GAP * 2) - HORIZONTAL_GAP;
-const RADIUS = CIRCUMFERENCE / (2 * Math.PI);
+const TOTAL_ENTRIES = 151;
+const CAROUSEL_RADIUS = 16;
+const NUM_ROWS = 3;
+const ENTRIES_PER_ROW = Math.ceil(TOTAL_ENTRIES / NUM_ROWS);
 
+const CIRCUMFERENCE = calcCircumference(CAROUSEL_RADIUS);
+const GRID_WIDTH = CIRCUMFERENCE / ENTRIES_PER_ROW;
+const ENTRY_WIDTH = GRID_WIDTH * 0.5;
+const ENTRY_HEIGHT = ENTRY_WIDTH;
+const ENTRY_PADDING = GRID_WIDTH - ENTRY_WIDTH;
+const GRID_HEIGHT = ENTRY_HEIGHT + ENTRY_PADDING;
+
+const ANGLE_INCREMENT = FULL_CIRCLE_RADIANS / ENTRIES_PER_ROW;
 export class ListStage extends BaseStage {
   constructor(context) {
     super();
@@ -43,28 +49,39 @@ export class ListStage extends BaseStage {
    * @param {Pokemon[]} allPokemon
    */
   setList(allPokemon) {
-    const angleIncrement = (Math.PI * 2) / TILES_PER_ROW;
-    let y = 10;
-    let angle = 0;
-
     for (let i = 0; i < allPokemon.length; i++) {
       const pokemon = allPokemon[i];
-      const node = new ListNode(pokemon.id, pokemon.spriteUrl);
-      angle += angleIncrement;
-      const x = Math.cos(angle) * RADIUS;
-      const z = Math.sin(angle) * RADIUS;
-      if(i % TILES_PER_ROW === 0) {
-        angle = 0;
-        y -= VERTICAL_GAP;
-      }
+      const node = new ListNode({ id: pokemon.id, width: ENTRY_WIDTH, spriteUrl: pokemon.spriteUrl });
 
-      const yRotation = Math.cos(angle) * z - Math.sin(angle) * x;
-      node.rotation.y = yRotation;
-
-      node.position.set(x, y, z);
+      const rotation = this.calcListItemRotation(i);
+      const position = this.calcListItemPosition(i);
+      node.rotation.set(rotation.x, rotation.y, rotation.z);
+      node.position.set(position.x, position.y, position.z);
       this.pokemon.push(node);
       this.group.add(node.group);
     }
+  }
+
+  calcListItemPosition(index) {
+    const centerCoord = this.group.position;
+    const angle = ANGLE_INCREMENT * index;
+    const verticalOffset = -Math.floor(index / ENTRIES_PER_ROW) * GRID_HEIGHT;
+    return {
+      x: CAROUSEL_RADIUS * Math.cos(angle) + centerCoord.x,
+      y: centerCoord.y + verticalOffset,
+      z: CAROUSEL_RADIUS * Math.sin(angle) + centerCoord.z,
+    }
+  }
+
+  calcListItemRotation(index) {
+    const ANGLE_INCREMENT = FULL_CIRCLE_RADIANS / ENTRIES_PER_ROW;
+    const angleOffset = Math.PI / 2;
+    const angle = -ANGLE_INCREMENT * index;
+    return {
+      x: 0,
+      y: angleOffset + angle,
+      z: 0,
+    };
   }
 
   

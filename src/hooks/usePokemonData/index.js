@@ -45,7 +45,7 @@ const getPokemonStatsById = (id) => {
 export const usePokemonData = () => {
   const allPokemon = getPokemonList();
 
-  console.debug("!!", allPokemon);
+  console.debug("[pokemon list] ", allPokemon);
 
   const getPokemonById = (id) => {
     if (!id) return;
