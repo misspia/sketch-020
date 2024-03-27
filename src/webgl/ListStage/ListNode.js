@@ -45,22 +45,22 @@ export class ListNode {
 
   createTile(width, height) {
     const geometry = new THREE.CylinderGeometry(width, height, 0.5, 8,  ); 
-    // const material = new THREE.MeshPhysicalMaterial({
-    //   metalness: 0.4,
-    //   roughness: 0.0,
-    //   opacity: 0.5,
-    //   transparent: true,
-    //   color: 0x0000ff,
-    //   sheen: 0x0000ff,
-    // }); 
-    const material = new THREE.MeshToonMaterial({
-      // metalness: 0.4,
-      // roughness: 0.0,
-      // opacity: 0.5,
-      // transparent: true,
+    const material = new THREE.MeshPhysicalMaterial({
+      metalness: 0.4,
+      roughness: 0.0,
+      opacity: 0.5,
+      transparent: true,
       color: 0x0000ff,
-      // sheen: 0x0000ff,
+      sheen: 0x0000ff,
     }); 
+    // const material = new THREE.MeshToonMaterial({
+    //   // metalness: 0.4,
+    //   // roughness: 0.0,
+    //   // opacity: 0.5,
+    //   // transparent: true,
+    //   color: 0x0000ff,
+    //   // sheen: 0x0000ff,
+    // }); 
     const mesh = new THREE.Mesh( geometry, material ); 
     mesh.rotation.x = toRadians(90)
     return mesh;
