@@ -1,7 +1,6 @@
 import { EventDispatcher as THREEEventDispatcher } from "three";
-import { WebglEvents } from "@constants/events";
 
-export class EventDispatcher {
+export class EventDispatcher extends THREEEventDispatcher {
   constructor() {
     this.dispatcher = new EventDispatcher();
   }

@@ -29,7 +29,14 @@ export class ListNode {
   exit() {
 
   }
+
+  activate() {
+
+  }
   
+  deactivate() {
+    
+  }
 
   createImagePlane(width, height) {
     const texture = this.loader.load(this.spriteUrl)
