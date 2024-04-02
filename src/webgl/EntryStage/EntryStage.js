@@ -1,11 +1,11 @@
 import * as THREE from "three";
 import { Model } from "@webgl/EntryStage/Model";
 import { TypeEffect } from "@webgl/EntryStage/TypeEffect";
-import { BaseStage } from '@webgl/BaseStage'
+import { BaseStage } from "@webgl/BaseStage";
 
 export class EntryStage extends BaseStage {
   constructor(context) {
-    super()
+    super();
     this.context = context;
     this.model = new Model(this.context);
     this.primaryTypeEffect = new TypeEffect();
@@ -26,13 +26,9 @@ export class EntryStage extends BaseStage {
     this.primaryTypeEffect.setType(types[0]);
   }
 
-  async enter() {
+  async enter() {}
 
-  }
-
-  async exit() {
-
-  }
+  async exit() {}
 
   update() {}
 }

@@ -18,18 +18,17 @@ export class Pokedex extends SceneManager {
   }
   init() {
     this.setClearColor(0xffffff);
-    this.setCameraPos(0, 2, 30);
+    this.setCameraPos(0, -3, 30);
     // this.setCameraPos(0, 19, 0);
 
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.scene.add(this.lights.group);
   }
 
-
   async exitCurrentStage() {
-    if(!!this.currentStage) {
+    if (!!this.currentStage) {
       await this.currentStage.exit();
-      this.scene.remove(this.currentStage.group)
+      this.scene.remove(this.currentStage.group);
     }
     return;
   }
@@ -60,7 +59,7 @@ export class Pokedex extends SceneManager {
     this.renderer.render(this.scene, this.camera);
     this.controls.update();
 
-    if(this.currentStage) {
+    if (this.currentStage) {
       this.currentStage.update();
     }
 

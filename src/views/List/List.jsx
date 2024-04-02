@@ -15,9 +15,9 @@ export const ListView = () => {
 
   return (
     <Container>
-      {allPokemon.map((pokemon) => (
+      {/* {allPokemon.map((pokemon) => (
         <div key={pokemon.id}>{pokemon.name}</div>
-      ))}
+      ))} */}
     </Container>
   );
 };

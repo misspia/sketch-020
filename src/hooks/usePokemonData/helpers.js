@@ -21,7 +21,7 @@ const get3DigitId = (id) => {
     return `0${id}`;
   }
   return id;
-}
+};
 
 const get4DigitId = (id) => {
   if (id < 10) {
@@ -37,9 +37,9 @@ const get4DigitId = (id) => {
   }
 
   return id;
-
-}
-const BASE_ASSET_URL = "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master"
+};
+const BASE_ASSET_URL =
+  "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master";
 export const getSpriteUrlById = (id) => {
   // return `${BASE_ASSET_URL}/Images/Pokemon/pokemon_icon_${get3DigitId(id)}_00.png`;
   return `https://raw.githubusercontent.com/misspia/assets/master/pokemon/artwork/${id}.png`;

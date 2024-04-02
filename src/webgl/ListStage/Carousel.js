@@ -1,7 +1,6 @@
-
 import * as THREE from "three";
-import { ListNode } from "@webgl/Liststage/ListNode";
-import { calcCircumference, FULL_CIRCLE_RADIANS } from '@webgl/utils'
+import { CarouselNode } from "@webgl/ListStage/CarouselNode";
+import { calcCircumference, FULL_CIRCLE_RADIANS } from "@webgl/utils";
 
 const TOTAL_ENTRIES = 151;
 const CAROUSEL_RADIUS = 16;
@@ -22,7 +21,7 @@ export class Carousel {
     this.group = new THREE.Group();
     this.pokemon = [];
     this.center = new THREE.Vector3(0, 0, 0);
-    this.rotationYVelocity = 0.002; 
+    this.rotationYVelocity = 0.0015;
   }
 
   get position() {
@@ -32,17 +31,15 @@ export class Carousel {
   get rotation() {
     return this.group.rotation;
   }
-  
-   /**
+
+  /**
    * @param {Pokemon[]} allPokemon
    */
   async enter(allPokemon) {
-    this.setList(allPokemon)
+    this.setList(allPokemon);
   }
 
-  async exit() {
-
-  }
+  async exit() {}
 
   /**
    * @param {Pokemon[]} allPokemon
@@ -50,7 +47,11 @@ export class Carousel {
   setList(allPokemon) {
     for (let i = 0; i < allPokemon.length; i++) {
       const pokemon = allPokemon[i];
-      const node = new ListNode({ id: pokemon.id, width: ENTRY_WIDTH, spriteUrl: pokemon.spriteUrl });
+      const node = new CarouselNode({
+        id: pokemon.id,
+        width: ENTRY_WIDTH,
+        spriteUrl: pokemon.spriteUrl,
+      });
 
       const rotation = this.calcListItemRotation(i);
       const position = this.calcListItemPosition(i);
@@ -58,12 +59,14 @@ export class Carousel {
       node.position.set(position.x, position.y, position.z);
       this.pokemon.push(node);
       this.group.add(node.group);
+
+      node.enter();
     }
   }
 
   calcListItemPosition(index) {
     const centerCoord = this.group.position;
-    const rowNum = Math.floor(index / ENTRIES_PER_ROW)
+    const rowNum = Math.floor(index / ENTRIES_PER_ROW);
     const angleOffset = rowNum % 2 === 0 ? 0 : ANGLE_INCREMENT / 2;
     const angle = angleOffset + ANGLE_INCREMENT * index;
     const verticalOffset = -rowNum * GRID_HEIGHT;
@@ -71,7 +74,7 @@ export class Carousel {
       x: CAROUSEL_RADIUS * Math.cos(angle) + centerCoord.x,
       y: centerCoord.y + verticalOffset,
       z: CAROUSEL_RADIUS * Math.sin(angle) + centerCoord.z,
-    }
+    };
   }
 
   calcListItemRotation(index) {
@@ -84,8 +87,6 @@ export class Carousel {
       z: 0,
     };
   }
-
-  
 
   update() {
     this.rotation.y += this.rotationYVelocity;
