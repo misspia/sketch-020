@@ -14,7 +14,6 @@ export class SceneManager extends THREE.EventDispatcher {
     this.isInitiated = false;
 
     this.canvas = canvas;
-    this.mouse = new THREE.Vector2();
 
     const aspectRatio = window.innerWidth / window.innerHeight;
     this.camera = new THREE.PerspectiveCamera(
@@ -65,14 +64,6 @@ export class SceneManager extends THREE.EventDispatcher {
     while (this.scene.children.length > 0) {
       this.scene.remove(this.scene.children[0]);
     }
-  }
-
-  createMouseListener() {
-    this.mouse = new THREE.Vector2();
-    this.canvas.addEventListener("mousemove", (e) => {
-      this.mouse.x = (e.clientX / this.canvas.width) * 2 - 1;
-      this.mouse.y = -(e.clientY / this.canvas.height) * 2 + 1;
-    });
   }
 
   resize(width, height) {
